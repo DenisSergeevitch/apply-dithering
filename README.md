@@ -4,11 +4,25 @@ An agent skill for implementing and debugging dithering in 3D scenes and games. 
 
 Based on Lucas Pope's [“Fullscreen, Round 3” TIGSource post](https://forums.tigsource.com/index.php?topic=40832.msg1363742#msg1363742), with an accessible [mirror hosted by the author](https://dukope.com/devlogs/obra-dinn/tig-32/). Attribution and supplementary sources are in [references/sources.md](references/sources.md).
 
-## Image example
+## Rendered 3D example
 
-![Fruit vase comparison: smooth grayscale on the left, a dither-style treatment on the right.](assets/fruit-vase-dithering-example.png)
+![Actual 3D fruit-vase render: grayscale on the left, manually applied 8x8 Bayer dithering on the right.](assets/fruit-vase-dithering-example.png)
 
-Smooth grayscale (left) and illustrative dithering (right), using the same simple fruit vase. This original AI-generated illustration shows the visual style; it is not output from the shader examples or a demonstration of motion stability.
+A fruit vase modeled and rendered in Blender, then processed with the same Bayer rank construction as the skill's shader example. Both panels use the same 480x360 render, enlarged 2x with nearest-neighbor sampling.
+
+The processor decodes sRGB, calculates linear Rec.709 luminance from Blender's display-transformed PNG, and compares it with `(rank + 0.5) / 64`. The left panel displays that luminance as sRGB grayscale; the right uses only black and white. This is a static screen-space example; motion stability needs a separate in-engine check.
+
+[Editable Blender scene](examples/fruit-vase/fruit-vase.blend) · [Color render](examples/fruit-vase/color-render.png) · [Grayscale](assets/fruit-vase-grayscale.png) · [One-bit result](assets/fruit-vase-bayer8.png)
+
+Reproduce with Blender and Python/Pillow:
+
+```sh
+blender --background --python examples/fruit-vase/scene.py -- --output examples/fruit-vase
+python3 -m pip install 'Pillow>=10.1'
+python3 examples/fruit-vase/apply_dither.py
+```
+
+[scene.py](examples/fruit-vase/scene.py) creates the geometry, materials, camera, lighting, `.blend`, and render. [apply_dither.py](examples/fruit-vase/apply_dither.py) applies the threshold effect and builds the comparison.
 
 ## Install in Codex
 
