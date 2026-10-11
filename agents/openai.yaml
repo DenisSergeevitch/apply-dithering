@@ -1,0 +1,4 @@
+interface:
+  display_name: "apply dithering"
+  short_description: "Stable dithering for 3D scenes and games"
+  default_prompt: "Use $apply-dithering to implement or fix dithering in this 3D scene, preserving the intended style and checking camera motion."
