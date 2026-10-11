@@ -4,6 +4,12 @@ An agent skill for implementing and debugging dithering in 3D scenes and games. 
 
 Based on Lucas Pope's [“Fullscreen, Round 3” TIGSource post](https://forums.tigsource.com/index.php?topic=40832.msg1363742#msg1363742), with an accessible [mirror hosted by the author](https://dukope.com/devlogs/obra-dinn/tig-32/). Attribution and supplementary sources are in [references/sources.md](references/sources.md).
 
+## Image example
+
+![Fruit vase comparison: smooth grayscale on the left, a dither-style treatment on the right.](assets/fruit-vase-dithering-example.png)
+
+Smooth grayscale (left) and illustrative dithering (right), using the same simple fruit vase. This original AI-generated illustration shows the visual style; it is not output from the shader examples or a demonstration of motion stability.
+
 ## Install in Codex
 
 Clone into your personal skills directory. If `apply-dithering` already exists there, inspect it before replacing or updating it.
